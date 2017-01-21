@@ -1,0 +1,114 @@
+class Node{
+	int data;
+	Node next;
+	Node(int data){
+		this.data = data;
+		next = null;
+	}
+}
+class LinkedList{
+	Node head,next;
+	public void createList(){
+		head = new Node(10);
+		Node t = head;
+		for(int i=2;i<=10;i++){
+			 
+			t=t.next= new Node(i*10);
+		}
+	}
+	public void printList(){
+		Node t = head;
+		while(t.next!=null){
+			System.out.print(t.data+" ");
+			t = t.next;
+		}
+	}
+	
+	public void insertInMiddle(int data,int val){
+		Node t = head;
+		Node temp,temp1,temp2 = null;
+		while(true){
+			if(t.data == data){
+				temp = t;
+				temp1 = t.next;
+				break;
+			}
+			t = t.next;
+		}
+		Node nnode = new Node(val);
+		t.next = nnode;
+		nnode.next = temp1;
+	}
+	public void insertInFront(int val){
+		Node t = head;
+		Node nnode = new Node(val);
+		nnode.next = head;
+		head = nnode;
+	}
+	public void insertInEnd(int val){
+		next = null;
+		Node t = head;
+		while(t.next!=null){
+				t= t.next;
+		}
+		Node nnode = new Node(val);
+		t.next = nnode;
+		t.next.next = null;
+	}
+	public void deleteFromFront(){
+		Node t = head;
+		Node temp = head.next;
+		head = head.next;
+	}
+	public void deleteFromEnd(){
+		Node t = head;
+		Node temp = null;
+		while(true){
+			if(t.next == null){
+				
+				break;
+			}
+			t = t.next;
+		}
+		t.next = null;
+	}
+	public void deleteAfterNode(int val){
+		Node t = head;
+		while(true){
+			if(t.next.data = val){
+				break;
+			}
+			t = t.next;
+		}
+		System.out.println(t.data);
+	}
+	public void deleteBeforeNode(int val){
+	}
+}
+public class MainClass{
+	public static void main(String[] args)
+	{
+		LinkedList lst = new LinkedList();
+		lst.createList();
+		lst.printList();
+		System.out.println();
+		lst.insertInMiddle(50,55);
+		lst.printList();
+		System.out.println();
+		lst.insertInFront(100);
+		lst.printList();
+		System.out.println();
+		lst.insertInEnd(110);
+		lst.printList();
+		System.out.println();
+		lst.deleteFromFront();
+		lst.printList();
+		System.out.println();
+		lst.deleteFromEnd();
+		lst.printList();
+		System.out.println();
+		lst.deleteAfterNode();
+		lst.printList();
+		System.out.println();
+	}
+}
