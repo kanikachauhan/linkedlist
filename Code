@@ -7,7 +7,7 @@ class Node{
 	}
 }
 class LinkedList{
-	Node head,next;
+	Node head,next,a,b;
 	int count = 0;
 	public void createList(){
 		Node n = new Node(10);
@@ -148,30 +148,82 @@ class LinkedList{
 	//	System.out.println(node.data);
 		return node;
 	}
+	public void createOddList(){
+		Node n = new Node(2);
+		a = n;
+		for(int i=4;i<=10;i=i+2){
+			n = n.next = new Node(i);
+		}
+	}
+	public void createEvenList(){
+		Node n = new Node(1);
+		b = n;
+		for(int i=3;i<=10;i=i+2){
+			n = n.next = new Node(i);
+		}
+	}
+	public void printOddList(){
+		Node t = a;
+		while(t.next!=null){
+			System.out.print(t.data+" ");
+			t = t.next;
+		}
+	}
+	public void printEvenList(){
+		Node t = b;
+		while(t.next!=null){
+			System.out.print(t.data+" ");
+			t = t.next;
+		}
+	}
+	public Node sortMerge(Node one,Node two){
+		Node result = null;
+		if(one==null)
+			return two;
+		else if(two == null)
+			return one;
+		if(one.data<=two.data){
+			result = one;
+			result.next = sortMerge(one.next,two);
+		}
+		else{
+			result = two;
+			result.next = sortMerge(one,two.next);
+		}
+	}
 }public class MainClass{
 	public static void main(String[] args)
 	{
 		LinkedList lst = new LinkedList();
 		lst.createList();
-		lst.printList();
+		lst.printList(lst.head);
 		System.out.println();
 		lst.insertInMiddle(50,55);
-		lst.printList();
+		lst.printList(lst.head);
 		System.out.println();
 		lst.insertInFront(100);
-		lst.printList();
+		lst.printList(lst.head);
 		System.out.println();
 		lst.insertInEnd(110);
-		lst.printList();
+		lst.printList(lst.head);
 		System.out.println();
-		lst.deleteFromFront();
-		lst.printList();
+		/*lst.deleteFromFront();
+		lst.printList(lst.head);
 		System.out.println();
 		lst.deleteFromEnd();
-		lst.printList();
+		lst.printList(lst.head);
 		System.out.println();
 		lst.deleteAfterNode();
-		lst.printList();
+		lst.printList(lst.head);
+		System.out.println();*/
+		Node temp = lst.reverseListSimple(lst.head);
+		lst.printList(temp);
 		System.out.println();
+		lst.createOddList();
+		lst.printOddList();
+		System.out.println();
+		lst.createEvenList();
+		lst.printEvenList();
+		Node temp = sortMerge(a,b);
 	}
 }
