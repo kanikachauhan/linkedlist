@@ -8,22 +8,21 @@ class Node{
 }
 class LinkedList{
 	Node head,next;
+	int count = 0;
 	public void createList(){
-		head = new Node(10);
-		Node t = head;
+		Node n = new Node(10);
+		head = n;
 		for(int i=2;i<=10;i++){
-			 
-			t=t.next= new Node(i*10);
+			n = n.next = new Node(i*10);
 		}
 	}
-	public void printList(){
+	public void printList(Node head){
 		Node t = head;
 		while(t.next!=null){
 			System.out.print(t.data+" ");
 			t = t.next;
 		}
 	}
-	
 	public void insertInMiddle(int data,int val){
 		Node t = head;
 		Node temp,temp1,temp2 = null;
@@ -75,7 +74,7 @@ class LinkedList{
 	public void deleteAfterNode(int val){
 		Node t = head;
 		while(true){
-			if(t.next.data = val){
+			if(t.next.data == val){
 				break;
 			}
 			t = t.next;
@@ -84,8 +83,72 @@ class LinkedList{
 	}
 	public void deleteBeforeNode(int val){
 	}
-}
-public class MainClass{
+	public void printListIterative(){
+		Node t = head;
+		while(t.next!=null){
+			count = count+1;
+			t = t.next;
+		}
+		System.out.println("Count :"+count);
+		count = 0;
+	}
+	public int countRecursive(Node t){
+		if(t==null)
+			return count;
+		else{
+			t = t.next;
+			++count;
+			return countRecursive(t);
+		}
+	}
+	public void swapnodes(int x,int y){
+		if(x==y)
+			return;
+		Node currx = head;
+		Node prevx = null;
+		Node curry = head;
+		Node prevy = null;
+		
+		while(currx.data!= x && currx!=null){
+			prevx = currx;
+			currx = currx.next;
+		}
+		while(curry.data!=y && curry!=null){
+			prevy = curry;
+			curry = curry.next;
+		}
+		if(currx==null || curry == null)
+			return;
+		if(prevx!= null)
+			prevx.next = curry;
+		else
+			head = curry;
+		
+		if(prevy!=null)
+			prevy.next = currx;
+		else
+			head = currx;
+		
+		Node temp = currx.next;
+		currx.next = curry.next;
+		curry.next = temp;
+	}
+	public Node reverseListSimple(Node node){
+		Node curr = node;
+		Node prev = null;
+		Node next = null;
+		while(curr!=null){
+			next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+		}
+		//System.out.println();
+		node = prev;
+	//	System.out.println(node.data);
+		return node;
+	}
+}public class MainClass{
 	public static void main(String[] args)
 	{
 		LinkedList lst = new LinkedList();
