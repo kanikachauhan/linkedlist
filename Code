@@ -8,6 +8,7 @@ class Node{
 }
 class LinkedList{
 	Node head,next,a,b;
+	boolean flag = false;
 	int count = 0;
 	public void createList(){
 		Node n = new Node(10);
@@ -176,6 +177,26 @@ class LinkedList{
 			t = t.next;
 		}
 	}
+	public boolean searchIterative(int data){
+		Node t = head;
+		while(t!=null){
+			if(t.data == data){
+				flag = true;
+				break;
+			}
+			t = t.next;
+		}
+		return flag;
+	}
+	public boolean searchRecursive(Node node,int data){
+		if(node==null)
+			flag = false;
+		else if(node.data == data)
+			flag = true;
+		else 
+			searchRecursive(node.next,data);
+		return flag;
+	}
 	public Node sortMerge(Node one,Node two){
 		Node result = null;
 		if(one==null)
@@ -190,15 +211,72 @@ class LinkedList{
 			result = two;
 			result.next = sortMerge(one,two.next);
 		}
+		 return(result);
 	}
-}public class MainClass{
-	public static void main(String[] args)
-	{
+	public Node nthNode(int n){
+		int count = 0;
+		Node t = head;
+		Node temp = null;
+		while(t!=null ){
+			if(count==n)
+			{
+				temp = t;
+				break;
+			}
+			count++;
+			t=t.next;
+		}
+		return temp;
+	}
+	public Node middleNode(){
+		Node slow = head;
+		Node fast = head;
+		
+		while(fast!=null && fast.next!=null){
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		return slow;
+	}
+	public void insertInSort(int val){
+		Node t = new Node(val);
+		Node temp = head;
+		Node prev = null;
+		Node nextNode = null;
+		if(head == null)
+			head = t;
+		else if(val<head.data){
+			head = t;
+			t.next = temp;
+		}
+		else{
+			while(temp!=null){
+				if(temp.data<val && temp.next.data>val){
+					prev  = temp;
+					nextNode = temp.next;
+					temp.next = t;
+					t.next = nextNode;
+					break;
+				}
+				temp = temp.next;
+			}
+//			System.out.println(prev.data+ " " +nextNode.data);
+		}
+	}
+	public void deleteGivenPointer(Node n1){
+		Node temp = n1.next;
+        n1.data = temp.data;
+        n1.next = temp.next;
+        temp = null;
+	}
+}
+class MainClass{
+	public static void main(String[] args){
 		LinkedList lst = new LinkedList();
 		lst.createList();
 		lst.printList(lst.head);
 		System.out.println();
-		lst.insertInMiddle(50,55);
+		/*lst.insertInMiddle(50,55);
 		lst.printList(lst.head);
 		System.out.println();
 		lst.insertInFront(100);
@@ -207,7 +285,7 @@ class LinkedList{
 		lst.insertInEnd(110);
 		lst.printList(lst.head);
 		System.out.println();
-		/*lst.deleteFromFront();
+		lst.deleteFromFront();
 		lst.printList(lst.head);
 		System.out.println();
 		lst.deleteFromEnd();
@@ -215,7 +293,7 @@ class LinkedList{
 		System.out.println();
 		lst.deleteAfterNode();
 		lst.printList(lst.head);
-		System.out.println();*/
+		System.out.println();
 		Node temp = lst.reverseListSimple(lst.head);
 		lst.printList(temp);
 		System.out.println();
@@ -224,6 +302,18 @@ class LinkedList{
 		System.out.println();
 		lst.createEvenList();
 		lst.printEvenList();
-		Node temp = sortMerge(a,b);
+		System.out.println();
+		Node tempvar = lst.sortMerge(lst.a,lst.b);
+		lst.printList(tempvar);
+		boolean flag = lst.searchRecursive(lst.head,20);
+		System.out.println("Search Result "+flag);
+		Node tempnth = lst.nthNode(5);
+		System.out.println("Nth Node in the list "+tempnth.data);	
+		Node midNode = lst.middleNode();
+		System.out.println("Middle Node "+midNode.data);
+		lst.insertInSort(55);
+		lst.printList(lst.head);*/
+		lst.deleteGivenPointer(lst.head.next.next.next);
+		lst.printList(lst.head);
 	}
 }
