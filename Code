@@ -438,7 +438,7 @@ class LinkedList{
 				tempB = tempB.next;
 				res = res.next;
 			}
-			if(tempA.data<tempB.data)
+			else if(tempA.data<tempB.data)
 				tempA=tempA.next;
 			else 
 				tempB=tempB.next;
@@ -509,26 +509,100 @@ class LinkedList{
 		createListOne();
 		createListTwo();
 		boolean sflag = true;
+		int count1 =0,count2=0;
 		Node tempa = a;
+		Node tempb = b;
 		while(tempa!=null){
+			count1++;
+			tempa = tempa.next;
+		}
+		while(tempb!=null){
+			count2++;
+			tempb=tempb.next;
+		}
+		if(count1!=count2)
+			sflag = false;
+		else{
+			while(tempa!=null && tempb!=null){
+				if(tempa.data!=tempb.data){
+					sflag = false;
+					break;
+				}
+			}
 		}
 		return sflag;
 	}
+	public void createCricularList(){
+		head = new Node(10);
+		head.next = new Node(20);
+		head.next.next = new Node(30);
+		head.next.next.next = new Node(40);
+		head.next.next.next.next = head;
+	}
 	public boolean detectLoop(){
+		createCricularList();
 		boolean sflag = false;
+		Node slow = head;
+		Node fast = head;
+		while(true){
+			if(slow.data == fast.data){
+					sflag = true;
+					break;
+			}
+			slow = slow.next;
+			fast = fast.next.next;
+		}
 		return sflag;
 	}
 	public Node removeLoop(){
-		Node temp = null;
-		return temp;
+		createCricularList();
+		Node slow = head;
+		Node fast = head.next;
+		while(true){
+			if(slow.data == fast.data){
+					break;
+			}
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		fast.next = null;
+		return head;
 	}
 	public void AlternateKPairReversing(){
 	}
 	public void DeleteNodesGreaterOnRightSide(){
 	}
 	public void EvenOddSegregate(){
+		
 	}
-	public void UnionOfLists(){
+	public Node UnionOfLists(){
+	/**************************************************************need to be checked*******************************/
+		createListA();
+		createListB();
+		Node res = null;
+		Node tempA = a;
+		Node tempB = b;
+		
+		while(tempA!=null || tempB!=null){
+			System.out.println(tempA.data+" "+tempB.data);
+			if(tempB.data == tempA.data){
+				tempA=tempA.next;
+				tempB = tempB.next;
+				
+			}
+			else if(tempA.data<tempB.data){
+				res = new Node(tempA.data);
+				tempA=tempA.next;
+				res = res.next;
+			}
+			else {
+				res = new Node(tempB.data);
+				tempB=tempB.next;
+				res = res.next;
+			}
+		}
+		return res;
+	/**************************************************************need to be checked*******************************/
 	}
 	public void AddTwoNumbers(){
 	}
@@ -590,8 +664,12 @@ class MainClass{
 		lst.deleteAlternate();
 		lst.printList(lst.moveLastToFront());
 		lst.printList(lst.intersectionOfSortedList());
-		lst.pairwiseSwap(lst.head);
-		lst.printList(lst.head);*/
+		/*lst.pairwiseSwap(lst.head);
+		lst.printList(lst.head);
 		lst.printList(lst.removeDuplicatesFromSorted());
+		System.out.println("Lists are similiar "+lst.similarList());
+		System.out.println("Loop Found "+lst.detectLoop());
+		lst.printList(lst.removeLoop());
+		lst.printList(lst.UnionOfLists());*/
 	}
 }
