@@ -23,7 +23,7 @@ class LinkedList{
 	}
 	public void printList(Node head){
 		Node t = head;
-		while(t.next!=null){
+		while(t!=null){
 			System.out.print(t.data+" ");
 			t = t.next;
 		}
@@ -361,6 +361,7 @@ class LinkedList{
 		return comnode.next;
 	}
 	public Node[] splitArray(){
+		///////////*****************************************************need to check
 		h1=new Node(head.data);
 		h2 = new Node (head.next.data);
 		Node h11 = h1;
@@ -373,7 +374,7 @@ class LinkedList{
 			temp = temp.next.next;
 		}
 		Node temp1 = head.next;
-		while(temp1.next!=null){
+		while(temp1.next!=null && temp1!=null){
 			h22 = h22.next = new Node(temp1.data);
 	//		System.out.println(temp1.data);
 			temp1 = temp1.next.next;
@@ -381,39 +382,164 @@ class LinkedList{
 		arr[0] = h1;
 		arr[1] = h2;
 		return arr;
+		///////////*****************************************************need to check
 	}
 	public void deleteAlternate(){
-		
+		Node prev = head;
+		Node curr = head.next;
+		if(head==null)
+			return;
+		while(prev!=null && curr!=null){
+			prev.next = curr.next;
+			curr = null;
+			prev = prev.next;
+			if(prev!=null)
+				curr = prev.next;
+		}
 	}
-	public void moveLastToFront(){
-		
+	public Node moveLastToFront(){
+		Node temp = head;
+		Node temp1 = null;
+		while(temp.next!=null){
+			temp1 = temp;
+			temp=temp.next;
+		}
+		temp.next = head;
+		head = temp;
+		temp1.next = null;
+		return head;
 	}
-	public Node intersectionList(){
-		
+	public void createListA(){
+		a = new Node(1);
+		a.next = new Node(2);
+		a.next.next = new Node(3);
+		a.next.next.next= new Node(4);
+		a.next.next.next.next = new Node(6);
 	}
-	public void pairwiseSwap(){
+	public void createListB(){
+		b = new Node(2);
+		b.next = new Node(4);
+		b.next.next = new Node(6);
+		b.next.next.next = new Node(8);
+	}
+	public Node intersectionOfSortedList(){
+		/**************************************************************need to be checked*******************************/
+		createListA();
+		createListB();
+		Node res = null;
+		Node tempA = a;
+		Node tempB = b;
 		
+		while(tempA!=null || tempB!=null){
+			System.out.println(tempA.data+" "+tempB.data);
+			if(tempB.data == tempA.data){
+				res = new Node(tempA.data);
+				tempA=tempA.next;
+				tempB = tempB.next;
+				res = res.next;
+			}
+			if(tempA.data<tempB.data)
+				tempA=tempA.next;
+			else 
+				tempB=tempB.next;
+		}
+		return res;
+		/**************************************************************need to be checked*******************************/
+	}
+	public void pairwiseSwap(Node headn){
+		if(headn!=null && headn.next!=null)
+		{
+			swap(headn,headn.next);
+			pairwiseSwap(headn.next.next);
+		}
+	}
+	public void swap(Node n1,Node n2){
+		int temp = n1.data;
+		n1.data = n2.data;
+		n2.data = temp;
+	}
+	public void createListWithDuplicates(){
+		head = new Node(10);
+		head.next = new Node(10);
+		head.next.next = new Node(20);
+		head.next.next.next=new Node(20);
+		head.next.next.next.next = new Node(20);
+		head.next.next.next.next.next = new Node(20);
+		head.next.next.next.next.next.next = new Node(30);
+		head.next.next.next.next.next.next.next = new Node(30);
+		head.next.next.next.next.next.next.next.next = new Node(40);
 	}
 	public void removeDuplicatesFromUnsorted(){
 		
 	}
-	public void removeDuplicatesFromSorted(){
-		
+	public Node removeDuplicatesFromSorted(){
+		createListWithDuplicates();
+		Node temp = head;Node val = null;Node nlist = head;
+		while(temp!=null && temp.next!=null){
+			if(temp.data == temp.next.data){
+				
+				val = temp.next;
+				temp.next = val.next;
+				val =null;
+				
+			}
+			else{
+				temp = temp.next;
+				
+			}
+			
+		}
+		return head;
+	}
+	public void createListOne(){
+		a = new Node(1);
+		a.next = new Node(2);
+		a.next.next = new Node(3);
+		a.next.next.next = new Node(4);
+		a.next.next.next.next = new Node(5);
+	}
+	public void createListTwo(){
+		b = new Node(1);
+		b.next = new Node(2);
+		b.next.next = new Node(3);
+		b.next.next.next = new Node(4);
+		b.next.next.next.next = new Node(5);
 	}
 	public boolean similarList(){
-		
+		createListOne();
+		createListTwo();
+		boolean sflag = true;
+		Node tempa = a;
+		while(tempa!=null){
+		}
+		return sflag;
 	}
-	public boolean removeAndDetectLoop(){
-		
+	public boolean detectLoop(){
+		boolean sflag = false;
+		return sflag;
+	}
+	public Node removeLoop(){
+		Node temp = null;
+		return temp;
+	}
+	public void AlternateKPairReversing(){
+	}
+	public void DeleteNodesGreaterOnRightSide(){
+	}
+	public void EvenOddSegregate(){
+	}
+	public void UnionOfLists(){
+	}
+	public void AddTwoNumbers(){
 	}
 }
 class MainClass{
 	public static void main(String[] args){
 		LinkedList lst = new LinkedList();
-		lst.createList();
-		//lst.printList(lst.head);
+		/*lst.createList();
+		lst.printList(lst.head);
 		System.out.println();
-		/*lst.insertInMiddle(50,55);
+		lst.insertInMiddle(50,55);
 		lst.printList(lst.head);
 		System.out.println();
 		lst.insertInFront(100);
@@ -449,17 +575,23 @@ class MainClass{
 		Node midNode = lst.middleNode();
 		System.out.println("Middle Node "+midNode.data);
 		lst.insertInSort(55);
-		lst.printList(lst.head);*/
-		//lst.deleteGivenPointer(lst.head.next.next.next);
-		//lst.printList(lst.head);
-		//lst.createPalindromeList();
-		//System.out.println("is palindrome "+lst.checkPalindrome());
-		//lst.createLongList();
-		//lst.createShortList();
-		//System.out.println("Merging point "+lst.mergingPoint().data);
+		lst.printList(lst.head);
+		lst.deleteGivenPointer(lst.head.next.next.next);
+		lst.printList(lst.head);
+		lst.createPalindromeList();
+		System.out.println("is palindrome "+lst.checkPalindrome());
+		lst.createLongList();
+		lst.createShortList();
+		System.out.println("Merging point "+lst.mergingPoint().data);
 		Node[] n = lst.splitArray();
 		lst.printList(lst.arr[0]);
 		System.out.println();
 		lst.printList(lst.arr[1]);
+		lst.deleteAlternate();
+		lst.printList(lst.moveLastToFront());
+		lst.printList(lst.intersectionOfSortedList());
+		lst.pairwiseSwap(lst.head);
+		lst.printList(lst.head);*/
+		lst.printList(lst.removeDuplicatesFromSorted());
 	}
 }
