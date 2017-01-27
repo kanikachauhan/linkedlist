@@ -1,3 +1,5 @@
+import java.util.*;
+import java.lang.Math.*;
 class Node{
 	int data;
 	Node next;
@@ -7,9 +9,11 @@ class Node{
 	}
 }
 class LinkedList{
-	Node head,next,a,b;
+	Stack stk = new Stack();
+	Node head,next,a,b,h1,h2;
 	boolean flag = false;
 	int count = 0;
+	Node[] arr = new Node[2];
 	public void createList(){
 		Node n = new Node(10);
 		head = n;
@@ -269,12 +273,145 @@ class LinkedList{
         n1.next = temp.next;
         temp = null;
 	}
+	public void createPalindromeList(){
+		head = new Node(1);
+		Node t = head;
+		t.next = new Node(1);
+		t.next.next = new Node(2);
+		t.next.next.next = new Node(11);
+		t.next.next.next.next = new Node(1);
+	}
+	public boolean checkPalindrome(){
+		boolean pflag = true;
+		Node t = head;
+		
+		while(t!=null){
+			stk.push(t.data);
+			t =t.next;
+		}
+		
+		Node temp = head;
+		while(!stk.empty()){
+			Integer datan = (Integer)stk.pop();
+			int nodedata = temp.data;
+			
+			if(datan!=nodedata){
+				pflag = false;
+				break;
+			}
+			temp = temp.next;
+		}return pflag;
+	}
+	public void createLongList(){
+		a = new Node(3);
+		Node a1 = a;
+		a1.next = new Node(6);
+		a1.next.next = new Node(9);
+		a1.next.next.next =  new Node(15);
+		a1.next.next.next.next = new Node(30);
+	}
+	public void createShortList(){
+		b = new Node(10);
+		Node b1 = b;
+		b1.next = new Node(15);
+		b1.next.next = new Node(30);
+	}
+	public Node mergingPoint(){
+		Node temp1 = a;
+		Node temp2 = b;
+		Node comnode = null;
+		int c1 = 0;
+		int c2 = 0;
+		while(temp1!=null){
+			c1 = c1+1;
+			temp1=temp1.next;
+		}
+		while(temp2!=null){
+			c2 = c2+1;
+			temp2 = temp2.next;
+		}
+		int absval = Math.abs(c1-c2);
+		if(c1>c2){
+			int counter = 0;
+			Node tt = a;
+			while(tt!=null){
+				if(counter == absval)
+				{
+					break;
+				}
+				counter = counter+1;
+				tt = tt.next;
+			}
+			comnode = tt;
+		}else if(c2>c1){
+			int counter = 0;
+			Node tt = b;
+			while(tt!=null){
+				if(counter == absval)
+				{
+					break;
+				}
+				counter = counter+1;
+				tt = tt.next;
+			}
+			comnode = tt;
+		}else{
+			comnode = a;
+		}
+		return comnode.next;
+	}
+	public Node[] splitArray(){
+		h1=new Node(head.data);
+		h2 = new Node (head.next.data);
+		Node h11 = h1;
+		Node h22 = h2;
+		Node temp = head;
+		//System.out.println(h11.data+" "+h22.data);
+		while(temp.next.next!=null){
+			h11 = h11.next = new Node(temp.data);
+	//		System.out.println(h11.data);
+			temp = temp.next.next;
+		}
+		Node temp1 = head.next;
+		while(temp1.next!=null){
+			h22 = h22.next = new Node(temp1.data);
+	//		System.out.println(temp1.data);
+			temp1 = temp1.next.next;
+		}
+		arr[0] = h1;
+		arr[1] = h2;
+		return arr;
+	}
+	public void deleteAlternate(){
+		
+	}
+	public void moveLastToFront(){
+		
+	}
+	public Node intersectionList(){
+		
+	}
+	public void pairwiseSwap(){
+		
+	}
+	public void removeDuplicatesFromUnsorted(){
+		
+	}
+	public void removeDuplicatesFromSorted(){
+		
+	}
+	public boolean similarList(){
+		
+	}
+	public boolean removeAndDetectLoop(){
+		
+	}
 }
 class MainClass{
 	public static void main(String[] args){
 		LinkedList lst = new LinkedList();
 		lst.createList();
-		lst.printList(lst.head);
+		//lst.printList(lst.head);
 		System.out.println();
 		/*lst.insertInMiddle(50,55);
 		lst.printList(lst.head);
@@ -313,7 +450,16 @@ class MainClass{
 		System.out.println("Middle Node "+midNode.data);
 		lst.insertInSort(55);
 		lst.printList(lst.head);*/
-		lst.deleteGivenPointer(lst.head.next.next.next);
-		lst.printList(lst.head);
+		//lst.deleteGivenPointer(lst.head.next.next.next);
+		//lst.printList(lst.head);
+		//lst.createPalindromeList();
+		//System.out.println("is palindrome "+lst.checkPalindrome());
+		//lst.createLongList();
+		//lst.createShortList();
+		//System.out.println("Merging point "+lst.mergingPoint().data);
+		Node[] n = lst.splitArray();
+		lst.printList(lst.arr[0]);
+		System.out.println();
+		lst.printList(lst.arr[1]);
 	}
 }
