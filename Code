@@ -2,7 +2,7 @@ import java.util.*;
 import java.lang.Math.*;
 class Node{
 	int data;
-	Node next;
+	Node next,right,down;
 	Node(int data){
 		this.data = data;
 		next = null;
@@ -667,11 +667,13 @@ class LinkedList{
 		a.next = new Node(3);
 		a.next.next = new Node(8);
 		a.next.next.next = new Node(1);
+		a.next.next.next.next = new Node(4);
 	}
 	public void makeListTwo(){
 		b = new Node(6);
 		b.next = new Node(7);
 		b.next.next = new Node(4);
+		b.next.next.next = new Node(10);
 	}
 	public Node AddTwoNumbers(){
 		makeListOne();
@@ -746,19 +748,73 @@ class LinkedList{
 		head = link1;
 		return head;
 	}
+	Node push(Node head_ref, int data)
+    {
+        Node new_node = new Node(data);
+        new_node.down = head_ref;
+        head_ref = new_node;
+        return head_ref;
+    }
 	public void FlattenList(){
-		
 	}
 	public void FlattenMultiLevel(){
-		
 	}
-	public void DeleteMnodesAfterNnodes(){
-		
+	public Node DeleteMnodesAfterNnodes(int m,int n){
+		int cnt =0;
+		Node temp = head;
+		Node link = null,linkend = null;
+		while(temp!=null){
+			cnt = cnt+1;
+			if(cnt == m){
+				link = temp;
+			}
+			temp = temp.next;
+			if(cnt == (m+n)){
+				linkend = temp;
+			}
+		}
+		link.next = linkend.next;
+		return head;
 	}
 	public void QuickSort(){
-		
 	}
-	
+	public void PairwiseSwapWithoutDataSwap(){
+	}
+	public void RemoveMiddlePoints(){
+	}
+	public void MaximumSumList(){
+	}
+	public void CloneListSetOne(){
+	}
+	public void CloneListSetTwo(){
+	}
+	public void InsertionSort(){
+	}
+	public void PointNextHigherVal(){
+	}
+	public void RearrangeList(){
+	}
+	public Node MergeAlternatePositions(){
+		makeListOne();
+		makeListTwo();
+		Node p_curr = a, q_curr = b;
+        Node p_next, q_next;
+		while((p_curr != null && q_curr != null)){
+			 // Save next pointers
+            p_next = p_curr.next;
+            q_next = q_curr.next;
+ 
+            // make q_curr as next of p_curr
+            q_curr.next = p_next; // change next pointer of q_curr
+            p_curr.next = q_curr; // change next pointer of p_curr
+ 
+            // update current pointers for next iteration
+            p_curr = p_next;
+            q_curr = q_next;
+		}
+		//b.head = q_curr;
+		return a;
+	}
 	public Node[] FindTriplet(int sum){
 		Node[] sumarr = new Node[3];
 		
@@ -878,8 +934,12 @@ class MainClass{
 		lst.DeleteNodeWithConditions(lst.head,lst.head.next.next.next);
 		lst.printList(lst.head);
 		lst.createList();
-		lst.printList(lst.RotateCounterClockWise(4));*/
+		lst.printList(lst.RotateCounterClockWise(4));
 		lst.SortZeroOneList();
 		lst.printList(lst.head);
+		lst.createList();
+		Node val = lst.DeleteMnodesAfterNnodes(4,3);
+		lst.printList(lst.head);*/
+		lst.printList(lst.MergeAlternatePositions());
 	}
 }
