@@ -80,11 +80,11 @@ class LinkedList{
 		Node t = head;
 		while(true){
 			if(t.next.data == val){
-				break;
+				t.next = t.next.next;
 			}
 			t = t.next;
 		}
-		System.out.println(t.data);
+		//System.out.println(t.data);
 	}
 	public void deleteBeforeNode(int val){
 	}
@@ -570,10 +570,68 @@ class LinkedList{
 	}
 	public void AlternateKPairReversing(){
 	}
-	public void DeleteNodesGreaterOnRightSide(){
+	public void createRightList(){
+		head = new Node(3);
+		head.next = new Node(2);
+		head.next.next = new Node(6);
+		head.next.next.next = new Node(5);
+		head.next.next.next.next = new Node(11);
+		head.next.next.next.next.next = new Node(10);
+		head.next.next.next.next.next.next = new Node(15);
+		head.next.next.next.next.next.next.next = new Node(12);
 	}
-	public void EvenOddSegregate(){
-		
+	public Node DeleteNodesGreaterOnRightSide(){
+		createRightList();
+		Node rev = reverseListSimple(head);
+	//	System.out.println(rev.data);
+		Node max = rev;
+		Node prev = null;
+		Node temp = rev;
+		while(temp!=null&&temp.next!=null){
+			if(temp.next.data<max.data){
+				//System.out.println(temp.data);
+				prev = temp.next;
+				temp.next = prev.next;
+				temp = null;
+			}else{
+				//System.out.println(temp.data);
+				temp = temp.next;
+				max = temp;
+			}
+		}
+		head = reverseListSimple(rev);
+		return head;
+	}
+	public void createSegregateList(){
+		head = new Node(10);
+		head.next = new Node(20);
+		head.next.next = new Node(40);
+		head.next.next.next = new Node(35);
+		head.next.next.next.next = new Node(67);
+		head.next.next.next.next.next = new Node(90);
+		head.next.next.next.next.next.next = new Node(11);
+		head.next.next.next.next.next.next.next = new Node(100);
+	}
+	public Node[] EvenOddSegregate(){
+		/**************************************************************need to be checked*******************************/
+		createSegregateList();
+		Node a=b=null;
+		Node temp = head;
+		while(temp!=null){
+			if(temp.data%2==0){
+				a = new Node(temp.data);
+				a = a.next;
+				temp = temp.next;
+				System.out.println(temp.data);
+			}else{
+				b = new Node(temp.data);
+				b = b.next;
+				temp = temp.next;
+				System.out.println(temp.data);
+			}
+		}
+		return new Node[]{a,b};
+		/**************************************************************need to be checked*******************************/
 	}
 	public Node UnionOfLists(){
 	/**************************************************************need to be checked*******************************/
@@ -604,7 +662,146 @@ class LinkedList{
 		return res;
 	/**************************************************************need to be checked*******************************/
 	}
-	public void AddTwoNumbers(){
+	public void makeListOne(){
+		a = new Node(2);
+		a.next = new Node(3);
+		a.next.next = new Node(8);
+		a.next.next.next = new Node(1);
+	}
+	public void makeListTwo(){
+		b = new Node(6);
+		b.next = new Node(7);
+		b.next.next = new Node(4);
+	}
+	public Node AddTwoNumbers(){
+		makeListOne();
+		makeListTwo();
+		Node temp = null;
+		Node res = null;
+		Node prev = null;
+		Node first = a;
+		Node second = b;
+		int sum = 0,carry =0;
+		while(first != null || second != null){
+			sum = carry + (first!=null?first.data:0) + (second!=null?second.data:0);
+			carry = (sum >= 10) ? 1 : 0;
+			sum = sum % 10;
+			temp = new Node(sum);
+			if (res == null) {
+                res = temp;
+            } else // If this is not the first node then connect it to the rest.
+            {
+                prev.next = temp;
+            }
+			prev = temp;
+ 
+            // Move first and second pointers to next nodes
+            if (first != null) {
+                first = first.next;
+            }
+            if (second != null) {
+                second = second.next;
+            }
+        }
+ 
+        if (carry > 0) {
+            temp.next = new Node(carry);
+        }
+ 
+        // return head of the resultant list
+        return res;
+	}
+	public void DeleteNodeWithConditions(Node h,Node givenNode){
+		Node temp = h;
+		Node prev = null;
+		while(temp!=null&&temp.next!=null){
+			if(givenNode.data == temp.next.data){
+				temp.next = temp.next.next;
+			}
+			temp = temp.next;
+		}
+	}
+	public Node RotateCounterClockWise(int n){
+		Node temp = head;
+		Node link = null,link1= null,nhead=null,endnode=null,nheadnext = null,olhead=head;
+		int count = 0;
+		while(temp!=null){
+			count = count+1;
+			if(count == n){
+				link = temp;
+				link1 = temp.next;
+				break;
+			}
+			temp = temp.next;
+		}
+		temp = head;
+		while(temp!=null){
+			if(temp.next==null){
+				endnode = temp;
+				break;
+			}temp = temp.next;
+		}
+		endnode.next = head;
+		link.next = null;
+		head = link1;
+		return head;
+	}
+	public void FlattenList(){
+		
+	}
+	public void FlattenMultiLevel(){
+		
+	}
+	public void DeleteMnodesAfterNnodes(){
+		
+	}
+	public void QuickSort(){
+		
+	}
+	
+	public Node[] FindTriplet(int sum){
+		Node[] sumarr = new Node[3];
+		
+		return sumarr;
+	} 
+	public void makeZeroOneList(){
+		head = new Node(1);
+		head.next = new Node(0);
+		head.next.next = new Node(1);
+		head.next.next.next= new Node(0);
+		head.next.next.next.next = new Node(2);
+		head.next.next.next.next.next = new Node(2);
+		head.next.next.next.next.next.next = new Node(1);
+		head.next.next.next.next.next.next.next = new Node(2);
+		head.next.next.next.next.next.next.next.next = new Node(2);
+		head.next.next.next.next.next.next.next.next.next = new Node(1);
+		head.next.next.next.next.next.next.next.next.next.next = new Node(0);
+		head.next.next.next.next.next.next.next.next.next.next.next = new Node(2);
+		head.next.next.next.next.next.next.next.next.next.next.next.next = new Node(1);
+		
+	}
+	public void SortZeroOneList(){
+		makeZeroOneList();
+		int countz=0,counto=0,countt=0;
+		Node node = head;
+		while(node!=null){
+			if(node.data == 0){
+				countz++;
+			}else if(node.data ==1){
+				counto++;
+			}else{
+				countt++;
+			}
+			node = node.next;
+		}
+		head = new Node(0);
+		Node n = head;
+		for(int i=0;i<countz-1;i++)
+			n = n.next = new Node(0);
+		for(int i=0;i<counto;i++)
+			n = n.next = new Node(1);
+		for(int i=0;i<countt;i++)
+			n = n.next = new Node(2);
 	}
 }
 class MainClass{
@@ -671,5 +868,18 @@ class MainClass{
 		System.out.println("Loop Found "+lst.detectLoop());
 		lst.printList(lst.removeLoop());
 		lst.printList(lst.UnionOfLists());*/
+		/*Node narr [] = lst.EvenOddSegregate();
+		lst.printList(narr[0]);
+		lst.printList(narr[1]);
+		lst.printList(lst.AddTwoNumbers());
+		lst.DeleteNodesGreaterOnRightSide();
+		lst.printList(lst.head);
+		lst.createList();
+		lst.DeleteNodeWithConditions(lst.head,lst.head.next.next.next);
+		lst.printList(lst.head);
+		lst.createList();
+		lst.printList(lst.RotateCounterClockWise(4));*/
+		lst.SortZeroOneList();
+		lst.printList(lst.head);
 	}
 }
