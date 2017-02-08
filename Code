@@ -778,11 +778,92 @@ class LinkedList{
 	}
 	public void QuickSort(){
 	}
-	public void PairwiseSwapWithoutDataSwap(){
+	public Node PairwiseSwapWithoutDataSwap(Node n){
+		if(n==null||n.next==null)
+			return null;
+		Node prev = n;
+		Node curr = n.next;
+		n = curr;
+		while(true){
+			Node next = curr.next;
+			curr.next = prev;
+			if(next==null||next.next==null)
+			{
+				prev.next = next;
+				break;
+			}
+			prev.next = next.next;
+			prev = next;
+			curr = prev.next;
+		}
+		return n;
 	}
 	public void RemoveMiddlePoints(){
 	}
-	public void MaximumSumList(){
+	public void createTwoLists(){
+		a = new Node(1);
+		a.next = new Node(3);
+		a.next.next = new Node(30);
+		a.next.next.next= new Node(90);
+		a.next.next.next.next = new Node(110);
+		a.next.next.next.next.next = new Node(120);
+		
+		b = new Node(0);
+		b.next = new Node(3);
+		b.next.next = new Node(12);
+		b.next.next.next = new Node(32);
+		b.next.next.next.next = new Node(90);
+		b.next.next.next.next.next = new Node(100);
+		b.next.next.next.next.next.next = new Node(120);
+		b.next.next.next.next.next.next.next = new Node(130);
+	}
+	public void MaximumSumList(Node a,Node b){
+		Node result = null;
+		Node prev1 = a,curr1 = a;
+		Node prev2 = b,curr2 = b;
+		while(curr1!=null||curr2!=null){
+			int sum1 =0 ,sum2 = 0;
+			while(curr1!=null && curr2!=null && curr1!=curr2){
+				if(curr1.data<curr2.data){
+					sum1 = sum1+curr1.data;
+					curr1 = curr1.next;
+				}else{
+					sum2 = sum2+curr2.data;
+					curr2 = curr2.next;
+				}
+			}
+			if(curr1!=null){
+				while(curr2!=null){
+					sum2 = sum2+curr2.data;
+					curr2 = curr2.next;
+				}
+			}
+			if(curr2!=null){
+				while(curr1!=null){
+					sum1 = sum1+curr1.data;
+					curr1 = curr1.next;
+				}
+			}
+			if(prev1==a && prev2 == b){
+				result = (sum1>sum2) ? prev1 : prev2; 
+			}
+			else{
+				if(sum1>sum2)
+					prev2.next = prev1.next;
+				else
+					prev1.next = prev2.next;
+			}
+			prev1 = curr1;
+			prev2 = curr2;
+			if(curr1!=null)
+				curr1 = curr1.next;
+			if(curr2!=null)
+				curr2 = curr2.next;
+			while(result!=null){
+				System.out.println(result.data);
+				result = result.next;
+			}
+		}
 	}
 	public void CloneListSetOne(){
 	}
@@ -939,7 +1020,11 @@ class MainClass{
 		lst.printList(lst.head);
 		lst.createList();
 		Node val = lst.DeleteMnodesAfterNnodes(4,3);
-		lst.printList(lst.head);*/
-		lst.printList(lst.MergeAlternatePositions());
+		lst.printList(lst.head);
+		lst.printList(lst.MergeAlternatePositions());*/
+		lst.createList();
+		lst.printList(lst.head);
+		System.out.println();
+		lst.printList(lst.PairwiseSwapWithoutDataSwap(lst.head));
 	}
 }
